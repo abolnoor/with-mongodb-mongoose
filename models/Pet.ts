@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Key } from "react";
 
 export interface Pets extends mongoose.Document {
