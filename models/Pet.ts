@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import { Key } from "react";
 
 export interface Pets extends mongoose.Document {
+  _id: Key;
   name: string;
   owner_name: string;
   species: string;
