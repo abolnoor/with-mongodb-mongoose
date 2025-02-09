@@ -17,7 +17,7 @@ const Index = ({ products }: Props) => {
             <h5 className="product-name">{product.name}</h5>
             <div className="main-content">
               <p className="product-name">{product.name}</p>
-              <p className="owner">Owner: {product.price}</p>
+              <p className="price">Price: {product.price}</p>
 
               <div className="btn-container">
                 <Link href={{ pathname: "/[id]/edit", query: { id: product._id } }}>

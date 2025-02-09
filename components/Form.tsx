@@ -87,10 +87,7 @@ const Form = ({ formId, productForm, forNewProduct = true }: Props) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const target = e.target;
-    const value =
-      target.name === "poddy_trained"
-        ? (target as HTMLInputElement).checked
-        : target.value;
+    const value = target.value;
     const name = target.name;
 
     setForm({
