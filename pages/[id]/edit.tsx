@@ -7,32 +7,26 @@ const fetcher = (url: string) =>
     .then((res) => res.json())
     .then((json) => json.data);
 
-const EditPet = () => {
+const EditProduct = () => {
   const router = useRouter();
   const { id } = router.query;
   const {
-    data: pet,
+    data: product,
     error,
     isLoading,
-  } = useSWR(id ? `/api/pets/${id}` : null, fetcher);
+  } = useSWR(id ? `/api/products/${id}` : null, fetcher);
 
   if (error) return <p>Failed to load</p>;
   if (isLoading) return <p>Loading...</p>;
-  if (!pet) return null;
+  if (!product) return null;
 
-  const petForm = {
-    name: pet.name,
-    owner_name: pet.owner_name,
-    species: pet.species,
-    age: pet.age,
-    poddy_trained: pet.poddy_trained,
-    diet: pet.diet,
-    image_url: pet.image_url,
-    likes: pet.likes,
-    dislikes: pet.dislikes,
+  const productForm = {
+    name: product.name,
+    price: product.price,
+    image: product.image,
   };
 
-  return <Form formId="edit-pet-form" petForm={petForm} forNewPet={false} />;
+  return <Form formId="edit-product-form" productForm={productForm} forNewProduct={false} />;
 };
 
-export default EditPet;
+export default EditProduct;
