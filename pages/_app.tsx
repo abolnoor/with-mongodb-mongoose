@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <img
           id="title"
-          src="../public/logo.jpg"
+          src="logo.jpg"
           alt="Fikrah logo"
         ></img>
       </div>
