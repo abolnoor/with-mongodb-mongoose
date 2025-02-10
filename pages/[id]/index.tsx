@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import dbConnect from "../../lib/dbConnect";
-import Pet, { Pets } from "../../models/Pet";
+import Product, { Products } from "../../models/Product";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { ParsedUrlQuery } from "querystring";
 
@@ -11,55 +11,36 @@ interface Params extends ParsedUrlQuery {
 }
 
 type Props = {
-  pet: Pets;
+  product: Products;
 };
 
-/* Allows you to view pet card info and delete pet card*/
-const PetPage = ({ pet }: Props) => {
+/* Allows you to view product card info and delete product card*/
+const ProductPage = ({ product }: Props) => {
   const router = useRouter();
   const [message, setMessage] = useState("");
   const handleDelete = async () => {
-    const petID = router.query.id;
+    const productID = router.query.id;
 
     try {
-      await fetch(`/api/pets/${petID}`, {
+      await fetch(`/api/products/${productID}`, {
         method: "Delete",
       });
       router.push("/");
     } catch (error) {
-      setMessage("Failed to delete the pet.");
+      setMessage("Failed to delete the product.");
     }
   };
 
   return (
-    <div key={pet._id}>
+    <div key={product._id}>
       <div className="card">
-        <img src={pet.image_url} />
-        <h5 className="pet-name">{pet.name}</h5>
+        <img src={product.image} />
+        <h5 className="product-name">{product.name}</h5>
         <div className="main-content">
-          <p className="pet-name">{pet.name}</p>
-          <p className="owner">Owner: {pet.owner_name}</p>
-
-          {/* Extra Pet Info: Likes and Dislikes */}
-          <div className="likes info">
-            <p className="label">Likes</p>
-            <ul>
-              {pet.likes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
-          <div className="dislikes info">
-            <p className="label">Dislikes</p>
-            <ul>
-              {pet.dislikes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
+          <p className="product-name">{product.name}</p>
 
           <div className="btn-container">
-            <Link href={`/${pet._id}/edit`}>
+            <Link href={`/${product._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
             <button className="btn delete" onClick={handleDelete}>
@@ -84,22 +65,22 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
     };
   }
 
-  const pet = await Pet.findById(params.id).lean();
+  const product = await Product.findById(params.id).lean();
 
-  if (!pet) {
+  if (!product) {
     return {
       notFound: true,
     };
   }
 
   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const serializedPet = JSON.parse(JSON.stringify(pet));
+  const serializedProduct = JSON.parse(JSON.stringify(product));
 
   return {
     props: {
-      pet: serializedPet,
+      product: serializedProduct,
     },
   };
 };
 
-export default PetPage;
+export default ProductPage;

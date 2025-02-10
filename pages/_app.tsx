@@ -8,19 +8,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Pet Care App</title>
+        <title>Fikrah</title>
       </Head>
 
       <div className="top-bar">
         <div className="nav">
           <Link href="/">Home</Link>
-          <Link href="/new">Add Pet</Link>
+          <Link href="/new">Add Product</Link>
         </div>
 
         <img
           id="title"
-          src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Pet_logo_with_flowers.png"
-          alt="pet care logo"
+          src="logo.jpg"
+          alt="Fikrah logo"
         ></img>
       </div>
       <div className="wrapper grid">

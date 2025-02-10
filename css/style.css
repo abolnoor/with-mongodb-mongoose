@@ -87,17 +87,17 @@
   transition: 0.5s all;
 }
 
-.owner {
+.price {
   color: grey;
   font-size: 110%;
 }
 
-.pet-name {
+.product-name {
   font-weight: bold;
   font-size: 130%;
 }
 
-h5.pet-name {
+h5.product-name {
   color: white;
   position: absolute;
   left: 0;
@@ -123,7 +123,7 @@ li {
   overflow: hidden;
 }
 
-.info.likes {
+.info.extra {
   margin-top: 25px;
 }
 
@@ -172,8 +172,8 @@ li {
   margin-left: 10px;
 }
 
-/* Delete Pet */
-.pet-container {
+/* Delete Product */
+.product-container {
   width: 100%;
 }
 

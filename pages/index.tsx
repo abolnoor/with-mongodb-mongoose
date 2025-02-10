@@ -1,47 +1,29 @@
 import Link from "next/link";
 import dbConnect from "../lib/dbConnect";
-import Pet, { Pets } from "../models/Pet";
+import Product, { Products } from "../models/Product";
 import { GetServerSideProps } from "next";
 
 type Props = {
-  pets: Pets[];
+  products: Products[];
 };
 
-const Index = ({ pets }: Props) => {
+const Index = ({ products }: Props) => {
   return (
     <>
-      {pets.map((pet) => (
-        <div key={pet._id}>
+      {products.map((product) => (
+        <div key={product._id}>
           <div className="card">
-            <img src={pet.image_url} />
-            <h5 className="pet-name">{pet.name}</h5>
+            <img src={product.image} />
+            <h5 className="product-name">{product.name}</h5>
             <div className="main-content">
-              <p className="pet-name">{pet.name}</p>
-              <p className="owner">Owner: {pet.owner_name}</p>
-
-              {/* Extra Pet Info: Likes and Dislikes */}
-              <div className="likes info">
-                <p className="label">Likes</p>
-                <ul>
-                  {pet.likes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="dislikes info">
-                <p className="label">Dislikes</p>
-                <ul>
-                  {pet.dislikes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
+              <p className="product-name">{product.name}</p>
+              <p className="price">Price: {product.price}</p>
 
               <div className="btn-container">
-                <Link href={{ pathname: "/[id]/edit", query: { id: pet._id } }}>
+                <Link href={{ pathname: "/[id]/edit", query: { id: product._id } }}>
                   <button className="btn edit">Edit</button>
                 </Link>
-                <Link href={{ pathname: "/[id]", query: { id: pet._id } }}>
+                <Link href={{ pathname: "/[id]", query: { id: product._id } }}>
                   <button className="btn view">View</button>
                 </Link>
               </div>
@@ -53,20 +35,20 @@ const Index = ({ pets }: Props) => {
   );
 };
 
-/* Retrieves pet(s) data from mongodb database */
+/* Retrieves product(s) data from mongodb database */
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
 
   /* find all the data in our database */
-  const result = await Pet.find({});
+  const result = await Product.find({});
 
   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const pets = result.map((doc) => {
-    const pet = JSON.parse(JSON.stringify(doc));
-    return pet;
+  const products = result.map((doc) => {
+    const product = JSON.parse(JSON.stringify(doc));
+    return product;
   });
 
-  return { props: { pets: pets } };
+  return { props: { products: products } };
 };
 
 export default Index;
